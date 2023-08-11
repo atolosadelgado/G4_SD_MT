@@ -1,3 +1,12 @@
+Intro
+
+This code evolves from the code used for the G4 basic course, at an intermediate stage. At this moment, the simulation runs without too much sophisication. 
+
+I would like to investigate how the MT option affects the implementation of Sensitive Detectors. 
+
+
+
+-------------------------------------------------------------------------------------
 M. Novak December 2019
 -----------------------
 
