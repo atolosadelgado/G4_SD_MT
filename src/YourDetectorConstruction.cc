@@ -14,6 +14,19 @@
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
 
+#include "CalorimeterSD.hh"
+#include "G4Material.hh"
+#include "G4NistManager.hh"
+
+#include "G4Box.hh"
+#include "G4LogicalVolume.hh"
+#include "G4PVPlacement.hh"
+#include "G4PVReplica.hh"
+#include "G4GlobalMagFieldMessenger.hh"
+#include "G4AutoDelete.hh"
+
+#include "G4SDManager.hh"
+
 
 // CTR
 YourDetectorConstruction::YourDetectorConstruction()
@@ -99,4 +112,18 @@ G4VPhysicalVolume* YourDetectorConstruction::Construct() {
     //
     // III. CREATE FIELD and RETURN WITH THE World PHYSICAL-VOLUME POINTER:
     return worldPhyscal;
+}
+
+void YourDetectorConstruction::ConstructSDandField()
+{
+  G4SDManager::GetSDMpointer()->SetVerboseLevel(1);
+
+  //
+  // Sensitive detectors
+  //
+  auto absoSD
+    = new B4c::CalorimeterSD("AbsorberSD", "AbsorberHitsCollection", -1);
+  G4SDManager::GetSDMpointer()->AddNewDetector(absoSD);
+  SetSensitiveDetector("logic-Target",absoSD);
+
 }

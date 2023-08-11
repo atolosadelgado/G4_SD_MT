@@ -29,7 +29,8 @@ class YourDetectorConstruction : public G4VUserDetectorConstruction {
     // Note: other (not pure) virtual methods are available in the base class 
     // for SD and FIELD construction. See G4VUserDetectorConstruction for more 
     // details.
-    
+    void ConstructSDandField() override;
+
     
     // Public method to obtain the proper gun-position depending on the detector
     // size (i.e. the mid point between the the World and the Target along the 
