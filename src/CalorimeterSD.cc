@@ -63,9 +63,11 @@ void CalorimeterSD::Initialize(G4HCofThisEvent* hce)
 
   // Create hits
   // fNofCells for cells + one more for total sums
-  for (G4int i=0; i<fNofCells+1; i++ ) {
-    fHitsCollection->insert(new CalorHit());
-  }
+//   for (G4int i=0; i<fNofCells+1; i++ ) {
+//     fHitsCollection->insert(new CalorHit());
+//   }
+  // just 1 hit in the collection
+  fHitsCollection->insert(new CalorHit());
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -84,21 +86,21 @@ G4bool CalorimeterSD::ProcessHits(G4Step* step,
 
   if ( edep==0. && stepLength == 0. ) return false;
 
-  auto touchable = (step->GetPreStepPoint()->GetTouchable());
+//   auto touchable = (step->GetPreStepPoint()->GetTouchable());
 
   // Get calorimeter cell id
-  auto layerNumber = touchable->GetReplicaNumber(1);
-
-  layerNumber = 0;
+//   auto layerNumber = touchable->GetReplicaNumber(1);
+//
+//   layerNumber = 0;
 
   // Get hit accounting data for this cell
-  auto hit = (*fHitsCollection)[layerNumber];
-  if ( ! hit ) {
-    G4ExceptionDescription msg;
-    msg << "Cannot access hit " << layerNumber;
-    G4Exception("CalorimeterSD::ProcessHits()",
-      "MyCode0004", FatalException, msg);
-  }
+//   auto hit = (*fHitsCollection)[layerNumber];
+//   if ( ! hit ) {
+//     G4ExceptionDescription msg;
+//     msg << "Cannot access hit " << layerNumber;
+//     G4Exception("CalorimeterSD::ProcessHits()",
+//       "MyCode0004", FatalException, msg);
+//   }
 
   // Get hit for total accounting
   auto hitTotal
@@ -106,7 +108,7 @@ G4bool CalorimeterSD::ProcessHits(G4Step* step,
 
 
   // Add values
-  hit->Add(edep, stepLength);
+//   hit->Add(edep, stepLength);
   hitTotal->Add(edep, stepLength);
 
   return true;
