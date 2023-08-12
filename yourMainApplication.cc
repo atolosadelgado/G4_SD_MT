@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
 
     //
     // Construct the RunManager
-    auto* runManager = G4RunManagerFactory::CreateRunManager();
+    auto* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::SerialOnly);
     //
     // Set (MANDATORY) User initialization classes:
     //  = 1. G4VUserDetectorConstruction
@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
     //
     // 2. PhysicsList = G4VModularPhysicsList <- G4VUserPhysicsList
     //    (use reference physics list through the G4PhysListFactory)
-    const G4String plName = "FTFP_BERT";
+    const G4String plName = "QGSP_BERT_HP";//"FTFP_BERT";
     G4PhysListFactory plFactory;
 //    plFactory.SetVerbose(0);
     G4VModularPhysicsList *pl = plFactory.GetReferencePhysList( plName );
