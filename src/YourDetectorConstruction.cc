@@ -32,9 +32,20 @@
 YourDetectorConstruction::YourDetectorConstruction()
 :   G4VUserDetectorConstruction() {
     // set default material: try to find the material in the NIST DB
-    G4String matName = "G4_Si";
-    fTargetMaterial = G4NistManager::Instance()->FindOrBuildMaterial(matName);
-    if (!fTargetMaterial) {
+//     G4String matName = "G4_Si";
+//     G4String matName = "G4_POLYETHYLENE";
+//     fTargetMaterial = G4NistManager::Instance()->FindOrBuildMaterial(matName);
+  std::string name, symbol;
+  int iz, mass, numisotopes;
+  G4String matName = "3He";
+  G4Isotope * He3_iso = new G4Isotope( name = "3He", iz = 2, mass = 3 );
+  G4Element * el3He = new G4Element( name = "enriched 3He", symbol="Hen", numisotopes=1);
+
+  el3He->AddIsotope( He3_iso, 1.00);
+  G4Material * mat3He = new G4Material("my3He", 1*CLHEP::kg/CLHEP::m3, 1);
+  mat3He->AddElement( el3He, 1.0 );
+  fTargetMaterial = mat3He;
+  if (!fTargetMaterial) {
       G4cerr<< "\n **** ERROR in YourDetectorConstruction::YourDetectorConstruction() \n"
             << "        Material with the given name of < " << matName << " >  \n"
             << "        was not found in the G4 NIST material DB               \n"
@@ -42,7 +53,7 @@ YourDetectorConstruction::YourDetectorConstruction()
       exit(-1);      
     }
     // set default target thickness
-    fTargetThickness = 1.0*CLHEP::cm; 
+    fTargetThickness = 1.0*CLHEP::m;
     // set the gun position: we should set it in the Construct() method and we  
     //  do it there later. Make it simple now: the world will be 1.1x the target 
     //  so we can compute the proper position of the gun (no any translations!!)
